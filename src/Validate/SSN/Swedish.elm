@@ -62,9 +62,12 @@ with a normalized string (with the "YYYYMMDDXXXX" format) or an `Err`.
 The supplied date is used when calculating the full year for 10-digit
 SSNs and should therefore probably be the current date.
 
-    normalize  "811218-9876" == Ok "198112189876"
-    normalize  "811218+9876" == Ok "188112189876"
-    normalize  "811218" == Err "Invalid Swedish SSN"
+    january4th2018 =
+        Date.fromTime 1515083518766
+
+    normalize january4th2018 "811218-9876" == Ok "198112189876"
+    normalize january4th2018 "811218+9876" == Ok "188112189876"
+    normalize january4th2018 "811218" == Err "Invalid Swedish SSN"
 
 -}
 normalize : Date -> String -> Result String String
