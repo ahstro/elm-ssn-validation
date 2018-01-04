@@ -6,19 +6,31 @@ import Test exposing (Test, describe, test)
 import Validate.SSN.Swedish as SSN
 
 
+{-| All valid SSN formats.
+Doesn't normalize to the same string.
+-}
 validSSNs : List String
 validSSNs =
+    "811218+9876" :: validFormats
+
+
+{-| All valid formats for the same SSN.
+Normalizes to "198112189876".
+-}
+validFormats : List String
+validFormats =
     [ "8112189876"
     , "811218-9876"
-    , "811218+9876"
     , "198112189876"
     , "19811218-9876"
     , "19811218+9876"
     ]
 
 
-invalidSSNs : List String
-invalidSSNs =
+{-| Some invalid inputs
+-}
+invalidInputs : List String
+invalidInputs =
     [ "98112189876"
     , "9811218-9876"
     , "9811218+9876"
@@ -48,7 +60,7 @@ suite =
             , test "Returns Err for invalid SSNs" <|
                 \_ ->
                     Expect.equal
-                        (List.map (isErr << SSN.validate) invalidSSNs)
-                        (List.map (always True) invalidSSNs)
+                        (List.map (isErr << SSN.validate) invalidInputs)
+                        (List.map (always True) invalidInputs)
             ]
         ]
