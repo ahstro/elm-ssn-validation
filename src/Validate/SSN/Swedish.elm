@@ -82,6 +82,7 @@ validateAndNormalize : Maybe Date -> String -> Result String String
 validateAndNormalize date ssn =
     ssn
         |> Helpers.matchOne ssnRegex
+        |> Result.mapError (\_ -> "Invalid Swedish SSN")
         |> Result.map .submatches
         |> Result.andThen (assembleNormalized date)
         |> Result.andThen luhnValidate
