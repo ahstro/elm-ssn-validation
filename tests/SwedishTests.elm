@@ -1,5 +1,6 @@
 module SwedishTests exposing (suite)
 
+import Date exposing (Date)
 import Expect
 import Result.Extra exposing (isErr, isOk)
 import Test exposing (Test, describe, test)
@@ -48,6 +49,11 @@ invalidInputs =
     ]
 
 
+january4th2018 : Date
+january4th2018 =
+    Date.fromTime 1515083518766
+
+
 suite : Test
 suite =
     describe "Validate.SSN.Swedish"
@@ -61,6 +67,18 @@ suite =
                 \_ ->
                     Expect.equal
                         (List.map (isErr << SSN.validate) invalidInputs)
+                        (List.map (always True) invalidInputs)
+            ]
+        , describe "normalize"
+            [ test "Normalizes all valid formats correctly" <|
+                \_ ->
+                    Expect.equal
+                        (List.map (SSN.normalize january4th2018) validFormats)
+                        (List.map (always (Ok "198112189876")) validFormats)
+            , test "Fails to normalize invalid inputs" <|
+                \_ ->
+                    Expect.equal
+                        (List.map (isErr << SSN.normalize january4th2018) invalidInputs)
                         (List.map (always True) invalidInputs)
             ]
         ]
