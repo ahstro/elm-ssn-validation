@@ -1,6 +1,16 @@
 # elm-ssn-validation
 
-Validate (currently only Swedish) social security numbers (personnummer).
+Validate social security numbers.
+If the type of SSN you'd like to validate isn't available, submit an
+[issue](https://github.com/ahstro/elm-ssn-validation/issues/new) or,
+even better, a [pull request](https://github.com/ahstro/elm-ssn-validation/compare).
+
+
+## Available SSNs
+
+| Language                        | Validation         | Normalization      |
+| ------------------------------- | :----------------: | :----------------: |
+| :sweden: Swedish (personnummer) | :white_check_mark: | :white_check_mark: |
 
 ## Installation
 
